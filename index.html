@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let me Claude that for you</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="For all those people who find it more convenient to bother you with their questions than to ask Claude themselves.">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Let me Claude that for you</h1>
+      <p class="tagline" id="tagline">For all those people who find it more convenient to bother you with their questions than to ask Claude themselves.</p>
+    </header>
+
+    <main>
+      <!-- Fixed-height area for instructions / snarky message (animation mode) -->
+      <div id="message-area" class="message-area hidden">
+        <div id="step-instructions" class="step-instructions">
+          <div class="step" id="step-1">Step 1: Type in your question</div>
+          <div class="step" id="step-2">Step 2: Click the arrow button</div>
+        </div>
+        <div id="snarky-message" class="snarky-message">
+          Was that so hard?
+        </div>
+      </div>
+
+      <!-- Chat area -->
+      <div id="chat-container" class="chat-container">
+        <div id="chat-messages" class="chat-messages">
+        </div>
+
+        <!-- Input area -->
+        <div class="input-area">
+          <div class="input-wrapper">
+            <textarea id="prompt-input" placeholder="How can I help you today?" rows="1"></textarea>
+            <button id="send-btn" class="send-btn" aria-label="Send">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 19V5"></path>
+                <path d="M5 12l7-7 7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Link result (generator mode only) -->
+      <div id="link-result" class="link-result hidden">
+        <p>Share this link:</p>
+        <div class="link-output">
+          <input type="text" id="generated-link" readonly>
+          <button id="copy-btn" class="copy-btn">Copy</button>
+        </div>
+        <button id="preview-btn" class="preview-btn">Preview animation</button>
+      </div>
+    </main>
+
+    <!-- Fake cursor for animation -->
+    <div id="fake-cursor" class="fake-cursor hidden">
+      <svg width="20" height="20" viewBox="0 0 24 24">
+        <path d="M5 3l14 8-6.5 2L9 19.5z" fill="white" stroke="white" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

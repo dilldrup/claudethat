@@ -1,0 +1,339 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #2b2a27;
+  --bg-secondary: #3b3a36;
+  --bg-input: #403f3b;
+  --text-primary: #ececec;
+  --text-secondary: #a8a8a4;
+  --accent: #da7756;
+  --accent-hover: #e8956e;
+  --border: #4a4945;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  position: relative;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Chat container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.chat-messages {
+  padding: 1rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 3.5rem;
+}
+
+/* User message bubble */
+.user-message {
+  align-self: flex-end;
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 18px 18px 4px 18px;
+  max-width: 80%;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: messageIn 0.3s ease forwards;
+}
+
+@keyframes messageIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Message area — fixed height container for steps / snarky message */
+.message-area {
+  position: relative;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.message-area.hidden {
+  display: none;
+}
+
+/* Step instructions */
+.step-instructions {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  transition: opacity 0.4s ease;
+}
+
+.step-instructions.fade-out {
+  opacity: 0;
+}
+
+.step {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.step.active {
+  color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* Snarky message */
+.snarky-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.snarky-message.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Input area */
+.input-area {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  background: var(--bg-input);
+  border-radius: 24px;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+.input-wrapper.focused {
+  border-color: var(--accent);
+}
+
+#prompt-input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  padding: 0.25rem 0;
+  font-family: inherit;
+  max-height: 120px;
+}
+
+#prompt-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.send-btn:hover {
+  background: var(--accent-hover);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+.send-btn.clicked {
+  transform: scale(0.9);
+}
+
+/* Link result */
+.link-result {
+  margin-top: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.link-result.hidden {
+  display: none;
+}
+
+.link-result p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.link-output {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.link-output input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.625rem 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  outline: none;
+}
+
+.link-output input:focus {
+  border-color: var(--accent);
+}
+
+.copy-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.625rem 1.25rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: var(--accent-hover);
+}
+
+.preview-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.preview-btn:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+
+/* Fake cursor */
+.fake-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  transition: top 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+              left 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.5));
+}
+
+.fake-cursor.hidden {
+  display: none;
+}
+
+/* Hide real cursor during animation */
+body.animating {
+  cursor: none;
+}
+
+body.animating * {
+  cursor: none !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #app {
+    padding: 1rem;
+    max-height: none;
+    height: 100vh;
+  }
+
+  header h1 {
+    font-size: 1.35rem;
+  }
+
+  .snarky-message {
+    font-size: 1.25rem;
+  }
+}
